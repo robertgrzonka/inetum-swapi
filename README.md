@@ -32,7 +32,7 @@ A React app that displays characters from Star Wars using the [SWAPI API](https:
 - SWAPI API
 
 ## Demo
-[Live demo](https://starwars-app-robertgrzonka.netlify.app/)
+🧑‍💻 [Live demo](https://inetum.theguys.dev/)
 
 ## License
 MIT
