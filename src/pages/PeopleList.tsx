@@ -60,9 +60,9 @@ const PeopleList = () => {
   
   const options = ['all', 'male', 'female', 'n/a', 'hermaphrodite'];
 
-  return (
-    <div className="max-w-4xl mx-auto p-6 min-h-screen">
-      <div className="text-center tracking-wide">
+  return ( 
+    <div className="max-w-4xl mx-auto p-6 min-h-screen ">
+      <div className="text-center ">
         <img src="/sw-logo.png" alt="Star Wars" className="h-50 inline-block" />
       </div>
 

@@ -38,11 +38,17 @@ const PersonDetails = () => {
   if (error) return <p className="text-red-500 text-center">{error}</p>;
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
+    <div className="min-h-screen flex items-center justify-center text-white p-6">
       <Link to="/" className="absolute top-5 left-5 text-black px-4 py-2 rounded-lg shadow-md hover:bg-yellow-400 transition">← Back to List</Link>
-      <h1 className="text-3xl font-bold">{person?.name}</h1>
-      <p><strong>Height:</strong> {person?.height} cm</p>
-      <p><strong>Birth Year:</strong> {person?.birth_year}</p>
+<div className="bg-darkCard p-8 rounded-lg shadow-lg max-w-lg text-center border border-gray-800 bg-black/70">
+  <h1 className="text-4xl font-extrabold mb-4">{person?.name}</h1>
+  <p className="text-lg">
+    <span className="font-bold text-gray-100">Height:</span> {person?.height} cm
+  </p>
+  <p className="text-lg">
+    <span className="font-bold text-gray-100">Birth Year:</span> {person?.birth_year}
+  </p>
+</div>
     </div>
   );
 };
