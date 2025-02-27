@@ -60,22 +60,23 @@ const PeopleList = () => {
   const options = ['all', 'male', 'female', 'n/a', 'hermaphrodite'];
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-4xl font-bold mb-6 text-center text-gray-800">Star Wars Characters</h1>
+    <div className="max-w-4xl mx-auto p-6 min-h-screen">
+<div className="text-center tracking-wide">
+  <img src="/sw-logo.png" alt="Star Wars" className="h-50 inline-block" /> 
+</div>
 
-      {/* Filtry */}
       <div className="flex gap-4 mb-6">
         <input
           type="text"
           placeholder="Search by name..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="border border-gray-300 p-2 rounded w-full"
+          className="border border-gray-300 text-yellow-400 p-2 rounded w-full"
         />
         <select
           value={genderFilter}
           onChange={(e) => setGenderFilter(e.target.value)}
-          className="border border-gray-300 p-2 rounded"
+          className="border border-gray-300 text-yellow-400 p-2 rounded"
         >
           { options.map( options => (
             <option key={ options } value={ options }>{ options }</option>
@@ -83,12 +84,12 @@ const PeopleList = () => {
         </select>
       </div>
 
-      {/* Tabela */}
-      <table className="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
-        <thead className="bg-gray-200 text-gray-800">
+      <div className="overflow-x-auto">
+      <table className="w-full border-collapse bg-black/60 shadow-lg rounded-lg overflow-hidden">
+          <thead className="bg-black text-yellow-400">
           <tr>
             <th
-              className="p-3 text-left cursor-pointer hover:bg-gray-300 transition"
+              className="p-3 text-left cursor-pointer hover:bg-gray-300 hover:text-black transition"
               onClick={() => {
                 setSortKey('name');
                 setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
@@ -97,7 +98,7 @@ const PeopleList = () => {
               Name {sortKey === 'name' ? (sortOrder === 'asc' ? '⬆' : '⬇') : ''}
             </th>
             <th
-              className="p-3 text-left cursor-pointer hover:bg-gray-300 transition"
+              className="p-3 text-left cursor-pointer hover:bg-gray-300 hover:text-black transition"
               onClick={() => {
                 setSortKey('gender');
                 setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
@@ -106,7 +107,7 @@ const PeopleList = () => {
               Gender {sortKey === 'gender' ? (sortOrder === 'asc' ? '⬆️' : '⬇️') : ''}
             </th>
             <th
-              className="p-3 text-left cursor-pointer hover:bg-gray-300 transition"
+              className="p-3 text-left cursor-pointer hover:bg-gray-300 hover:text-black transition"
               onClick={() => {
                 setSortKey('films');
                 setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
@@ -114,19 +115,19 @@ const PeopleList = () => {
             >
               Films {sortKey === 'films' ? (sortOrder === 'asc' ? '⬆️' : '⬇️') : ''}
             </th>
-            <th className="p-3 text-left">Details</th>
+            <th className="p-3 text-center">Details</th>
           </tr>
         </thead>
         <tbody>
           {filteredPeople.map((person) => (
-            <tr key={person.name} className="border-b hover:bg-gray-100 transition">
+            <tr key={person.name} className="border-b hover:bg-yellow-100 transition hover:text-black">
               <td className="p-3">{person.name}</td>
               <td className="p-3">{person.gender}</td>
               <td className="p-3">{person.films.length} films</td>
-              <td className="p-3">
+              <td className="p-3 text-center">
                 <Link
                   to={`/person/${encodeURIComponent(person.name)}`}
-                  className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition"
+                  className="bg-yellow-400 text-black px-3 py-1 rounded hover:bg-yellow-600 transition"
                 >
                   Show Details
                 </Link>
@@ -135,6 +136,7 @@ const PeopleList = () => {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 };

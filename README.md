@@ -1,6 +1,6 @@
 # Star Wars Characters App 🚀
 
-A React app that displays characters from Star Wars using the [SWAPI API](https://swapi.dev/).
+A React app that displays characters from Star Wars using the [SWAPI API](https://swapi.dev/). It may have some issues and bugs in some parts.
 
 ## Features
 ✅ Fetches Star Wars characters from SWAPI  
