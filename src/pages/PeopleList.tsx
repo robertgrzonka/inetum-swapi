@@ -106,9 +106,9 @@ const PeopleList = () => {
               <td className="p-3 text-center">
                 <Link
                   to={`/person/${encodeURIComponent(person.name)}`}
-                  className="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-black hover:text-white shadow-md transition"
+                  className="w-[120px] bg-yellow-400 text-black px-4 py-2 rounded hover:bg-black hover:text-white shadow-md transition"
                 >
-                  Show Details
+                  Details
                 </Link>
               </td>
             </tr>
