@@ -12,7 +12,7 @@ A React app that displays characters from Star Wars using the [SWAPI API](https:
 ## Installation
 1. Clone the repo:
    ```sh
-   git clone https://github.com/robertgrzonka/starwars-app.git
+   git clone https://github.com/robertgrzonka/inetum-swapi.git
    ```
 2. Install dependencies:
    ```sh
