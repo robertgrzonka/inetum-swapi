@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchPeople } from '../api/swapi';
 import { Link } from 'react-router-dom';
+import Loader from '../components/Loader'
 
 interface Person {
   name: string;
@@ -54,16 +55,16 @@ const PeopleList = () => {
     setFilteredPeople(sortedData);
   }, [sortKey, sortOrder, people]);
 
-  if (loading) return <p className="text-center text-lg font-bold">Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p className="text-red-600 text-center text-lg font-bold bg-red-100 p-4 rounded-lg">{error}</p>;
   
   const options = ['all', 'male', 'female', 'n/a', 'hermaphrodite'];
 
   return (
     <div className="max-w-4xl mx-auto p-6 min-h-screen">
-<div className="text-center tracking-wide">
-  <img src="/sw-logo.png" alt="Star Wars" className="h-50 inline-block" /> 
-</div>
+      <div className="text-center tracking-wide">
+        <img src="/sw-logo.png" alt="Star Wars" className="h-50 inline-block" />
+      </div>
 
       <div className="flex gap-4 mb-6">
         <input
