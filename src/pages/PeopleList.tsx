@@ -25,7 +25,6 @@ const PeopleList = () => {
         setLoading(true);
         const data = await fetchPeople();
         setPeople(data);
-        setFilteredPeople(data);
       } catch (err) {
         setError((err as Error).message);
       } finally {
@@ -34,24 +33,18 @@ const PeopleList = () => {
     };
     getPeople();
   }, []);
-
+  
   useEffect(() => {
     let sortedData = [...people];
-
-    sortedData = sortedData.sort((a, b) => {
-      let valueA: string | number | string[] = a[sortKey];
-      let valueB: string | number | string[] = b[sortKey];
-
-      if (sortKey === 'films') {
-        valueA = a.films.length;
-        valueB = b.films.length;
-      }
-
-      if (valueA < valueB) return sortOrder === 'asc' ? -1 : 1;
-      if (valueA > valueB) return sortOrder === 'asc' ? 1 : -1;
-      return 0;
-    });
-
+  
+    if (sortKey === 'films') {
+      sortedData.sort((a, b) => a.films.length - b.films.length);
+    } else {
+      sortedData.sort((a, b) => (a[sortKey] < b[sortKey] ? -1 : 1));
+    }
+  
+    if (sortOrder === 'desc') sortedData.reverse();
+  
     setFilteredPeople(sortedData);
   }, [sortKey, sortOrder, people]);
 
@@ -59,6 +52,15 @@ const PeopleList = () => {
   if (error) return <p className="text-red-600 text-center text-lg font-bold bg-red-100 p-4 rounded-lg">{error}</p>;
   
   const options = ['all', 'male', 'female', 'n/a', 'hermaphrodite'];
+
+  const handleSort = (key: 'name' | 'gender' | 'films') => {
+    setSortKey(key);
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+  };
+
+  const filterPeople = (person: Person) => {
+    return genderFilter === 'all' || person.gender === genderFilter;
+  };
 
   return ( 
     <div className="max-w-4xl mx-auto p-6 min-h-screen ">
@@ -89,42 +91,18 @@ const PeopleList = () => {
       <table className="w-full border-collapse bg-black/60 shadow-lg rounded-lg overflow-hidden">
           <thead className="bg-black text-yellow-400">
           <tr>
-            <th
-              className="p-3 text-left cursor-pointer hover:bg-gray-300 hover:text-black transition"
-              onClick={() => {
-                setSortKey('name');
-                setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-              }}
-            >
-              Name {sortKey === 'name' ? (sortOrder === 'asc' ? '⬆' : '⬇') : ''}
-            </th>
-            <th
-              className="p-3 text-left cursor-pointer hover:bg-gray-300 hover:text-black transition"
-              onClick={() => {
-                setSortKey('gender');
-                setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-              }}
-            >
-              Gender {sortKey === 'gender' ? (sortOrder === 'asc' ? '⬆️' : '⬇️') : ''}
-            </th>
-            <th
-              className="p-3 text-left cursor-pointer hover:bg-gray-300 hover:text-black transition"
-              onClick={() => {
-                setSortKey('films');
-                setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-              }}
-            >
-              Films {sortKey === 'films' ? (sortOrder === 'asc' ? '⬆️' : '⬇️') : ''}
-            </th>
+          <th onClick={() => handleSort('name')} className="cursor-pointer sortable">Name {sortKey === 'name' ? (sortOrder === 'asc' ? '⬆' : '⬇') : ''}</th>
+          <th onClick={() => handleSort('gender')} className="cursor-pointer sortable">Gender {sortKey === 'gender' ? (sortOrder === 'asc' ? '⬆' : '⬇') : ''}</th>
+          <th onClick={() => handleSort('films')} className="cursor-pointer sortable">Films {sortKey === 'films' ? (sortOrder === 'asc' ? '⬆' : '⬇') : ''}</th>
             <th className="p-3 text-center">Details</th>
           </tr>
         </thead>
         <tbody>
-          {filteredPeople.map((person) => (
+          {filteredPeople.filter(filterPeople).map((person) => (
             <tr key={person.name} className="border-b hover:bg-yellow-100 transition hover:text-black">
-              <td className="p-3">{person.name}</td>
-              <td className="p-3">{person.gender}</td>
-              <td className="p-3">{person.films.length} films</td>
+              <td className="p-3 text-center">{person.name}</td>
+              <td className="p-3 text-center">{person.gender}</td>
+              <td className="p-3 text-center">{person.films.length} films</td>
               <td className="p-3 text-center">
                 <Link
                   to={`/person/${encodeURIComponent(person.name)}`}
