@@ -21,11 +21,12 @@ const PeopleList = () => {
   useEffect(() => {
     const getPeople = async () => {
       try {
+        setLoading(true);
         const data = await fetchPeople();
         setPeople(data);
         setFilteredPeople(data);
       } catch (err) {
-        setError('Failed to fetch data');
+        setError((err as Error).message);
       } finally {
         setLoading(false);
       }
@@ -54,7 +55,7 @@ const PeopleList = () => {
   }, [sortKey, sortOrder, people]);
 
   if (loading) return <p className="text-center text-lg font-bold">Loading...</p>;
-  if ( error ) return <p className="text-red-500 text-center">{ error }</p>;
+  if (error) return <p className="text-red-600 text-center text-lg font-bold bg-red-100 p-4 rounded-lg">{error}</p>;
   
   const options = ['all', 'male', 'female', 'n/a', 'hermaphrodite'];
 

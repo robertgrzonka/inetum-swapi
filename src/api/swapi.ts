@@ -8,6 +8,6 @@ export const fetchPeople = async () => {
     return response.data.results;
   } catch (error) {
     console.error('Error fetching people:', error);
-    throw error;
+    throw new Error('Failed to load characters. Please try again later.');
   }
 };
