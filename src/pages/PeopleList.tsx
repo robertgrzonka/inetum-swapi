@@ -59,8 +59,11 @@ const PeopleList = () => {
   };
 
   const filterPeople = (person: Person) => {
-    return genderFilter === 'all' || person.gender === genderFilter;
-  };
+    const matchesGender = genderFilter === 'all' || person.gender === genderFilter;
+    const matchesSearch = person.name.toLowerCase().includes(searchTerm.toLowerCase());
+  
+    return matchesGender && matchesSearch;
+  };  
 
   return ( 
     <div className="max-w-4xl mx-auto p-6 min-h-screen ">
@@ -81,7 +84,7 @@ const PeopleList = () => {
           onChange={(e) => setGenderFilter(e.target.value)}
           className="border border-gray-300 text-yellow-400 p-2 rounded"
         >
-          { options.map( options => (
+          {options.map( options => (
             <option key={ options } value={ options }>{ options }</option>
           ) ) }
         </select>
